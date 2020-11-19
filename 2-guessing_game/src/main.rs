@@ -2,12 +2,11 @@ use std::io;
 use rand::Rng;
 use std::cmp::Ordering;
 
-fn main() {
-    println!("Welcome to guess the number!!");
+fn get_secret() -> u32 {
+    return rand::thread_rng().gen_range(1, 101);
+}
 
-    let secret_value = rand::thread_rng().gen_range(1, 101);
-    println!("The secret is: {}", secret_value);
-
+fn get_guess() -> u32 {
     loop {
         println!("Enter your guess.");
         let mut guess = String::new();
@@ -23,6 +22,19 @@ fn main() {
                 continue;
             },
         };
+
+        return guess;
+    }
+}
+
+fn main() {
+    println!("Welcome to guess the number!!");
+
+    let secret_value = get_secret();
+    println!("The secret is: {}", secret_value);
+
+    loop {
+        let guess = get_guess();
 
         println!("You guessed: {}", guess);
         match guess.cmp(&secret_value) {
